@@ -1,7 +1,7 @@
 # spatialrag/core/embedder.py
 from transformers import AutoModel
 import torch
-from typing import List, Union
+from typing import List, Union, Dict  # Added Dict import
 import numpy as np
 
 class JinaV4Embedder:
@@ -38,3 +38,11 @@ class JinaV4Embedder:
         
         # Generate embedding with Jina v4
         return self.model.encode(final_text, convert_to_numpy=True)
+    
+    def embed_text(self, text: str) -> np.ndarray:
+        """Simple text embedding"""
+        return self.model.encode(text, convert_to_numpy=True)
+    
+    def embed_batch(self, texts: List[str]) -> np.ndarray:
+        """Batch embedding for efficiency"""
+        return self.model.encode(texts, convert_to_numpy=True)
